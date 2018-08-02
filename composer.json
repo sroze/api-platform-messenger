@@ -1,0 +1,11 @@
+{
+  "name": "sroze/api-platform-messenger",
+  "autoload": {
+    "psr-4": {
+      "Sam\\ApiPlatform\\Messenger\\": "src/"
+    }
+  },
+  "require": {
+    "api-platform/core": "^2.1"
+  }
+}
