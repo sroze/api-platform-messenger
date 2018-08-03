@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="api_platform_messenger.resource_class_directories" type="collection">
+            <parameter>%kernel.project_dir%/src/</parameter>
+        </parameter>
+    </parameters>
+
+    <services>
+        <service id="api_platform_messenger.name_collection_factory"
+                 class="Sam\ApiPlatform\Messenger\Factory\AnnotationResourceNameCollectionFactory"
+                 decorates="api_platform.metadata.resource.name_collection_factory">
+            <argument type="service" id="annotation_reader" />
+            <argument>%api_platform_messenger.resource_class_directories%</argument>
+            <argument type="service" id="api_platform_messenger.name_collection_factory.inner" />
+        </service>
+
+        <service id="api_platform_messenger.metadata_factory"
+                 class="Sam\ApiPlatform\Messenger\Factory\AnnotationResourceMetadataFactory"
+                 decorates="api_platform.metadata.resource.metadata_factory">
+            <argument type="service" id="annotation_reader" />
+            <argument type="service" id="api_platform_messenger.metadata_factory.inner" />
+        </service>
+
+        <service id="api_platform_messenger.action.dispatch" class="Sam\ApiPlatform\Messenger\Action\Dispatch">
+            <argument type="service" id="Symfony\Component\Messenger\MessageBusInterface" />
+
+            <tag name="controller.service_arguments" />
+        </service>
+
+        <service id="api_platform_messenger.metadata.allow_resource_without_property"
+                 class="Sam\ApiPlatform\Messenger\Factory\Metadata\AllowResourceWithoutProperty"
+                 decorates="api_platform.metadata.property.name_collection_factory">
+            <argument type="service" id="api_platform_messenger.metadata.allow_resource_without_property.inner" />
+            <argument type="service" id="api_platform.metadata.resource.metadata_factory" />
+        </service>
+    </services>
+</container>

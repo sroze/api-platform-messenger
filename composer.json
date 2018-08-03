@@ -6,6 +6,7 @@
     }
   },
   "require": {
-    "api-platform/core": "^2.1"
+    "api-platform/core": "^2.1",
+    "symfony/framework-bundle": "^3.3 || ^4.0"
   }
 }
