@@ -1,6 +1,6 @@
 <?php
 
-namespace Sam\ApiPlatform\Messenger\Bundle;
+namespace Sam\ApiPlatform\Messenger;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

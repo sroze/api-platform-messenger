@@ -1,6 +1,6 @@
 <?php
 
-namespace Sam\ApiPlatform\Messenger\Bundle\DependencyInjection;
+namespace Sam\ApiPlatform\Messenger\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
