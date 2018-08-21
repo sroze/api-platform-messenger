@@ -1,8 +1,9 @@
 {
   "name": "sroze/api-platform-messenger",
+  "type": "symfony-bundle",
   "autoload": {
     "psr-4": {
-      "Sam\\ApiPlatform\\Messenger\\": "src/"
+      "Sam\\ApiPlatform\\Messenger\\": ""
     }
   },
   "require": {
