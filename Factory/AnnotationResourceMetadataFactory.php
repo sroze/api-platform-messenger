@@ -73,6 +73,7 @@ final class AnnotationResourceMetadataFactory implements ResourceMetadataFactory
             $method => ['method' => $method, 'controller' => 'api_platform_messenger.action.dispatch', 'defaults' => ['_api_platform_messenger_type' => $annotation->type]]
         ];
 
+        $graphqlOperation = $annotation->type === 'command' ? 'update' : 'query';
         return new ResourceMetadata(
             str_replace('/', '', $annotation->path),
             null,
@@ -81,7 +82,9 @@ final class AnnotationResourceMetadataFactory implements ResourceMetadataFactory
             $collectionOperations,
             array_merge(['_api_platform_messenger' => true], $annotation->attributes),
             [],
-            null
+            [
+                $graphqlOperation => [],
+            ]
         );
     }
 }
