@@ -14,6 +14,14 @@ class ApiPlatformMessengerExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
+
+        $container->setParameter(
+            'api_platform_messenger.resource_class_directories',
+            $config['mapping']['paths'] ?? [$container->getParameter('%kernel.project_dir%').DIRECTORY_SEPARATOR.'src']
+        );
+
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
     }
