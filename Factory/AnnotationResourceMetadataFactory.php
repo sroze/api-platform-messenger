@@ -49,7 +49,7 @@ final class AnnotationResourceMetadataFactory implements ResourceMetadataFactory
             return $this->handleNotFound($parentResourceMetadata, $resourceClass);
         }
 
-        return $this->createMetadata($resourceAnnotation);
+        return $this->createMetadata($resourceClass, $resourceAnnotation);
     }
 
     /**
@@ -66,7 +66,7 @@ final class AnnotationResourceMetadataFactory implements ResourceMetadataFactory
         throw new ResourceClassNotFoundException(sprintf('Resource "%s" not found.', $resourceClass));
     }
 
-    private function createMetadata(ApiMessage $annotation): ResourceMetadata
+    private function createMetadata(string $messageClass, ApiMessage $annotation): ResourceMetadata
     {
         $method = $annotation->type === 'command' ? 'post' : 'get';
         $collectionOperations = [
@@ -80,10 +80,12 @@ final class AnnotationResourceMetadataFactory implements ResourceMetadataFactory
             $annotation->path,
             [],
             $collectionOperations,
-            array_merge(['_api_platform_messenger' => true], $annotation->attributes),
+            array_merge(['_api_platform_messenger' => $messageClass], $annotation->attributes),
             [],
             [
-                $graphqlOperation => [],
+                $graphqlOperation => [
+                    'return' => $annotation->return,
+                ],
             ]
         );
     }

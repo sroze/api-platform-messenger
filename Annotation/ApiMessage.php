@@ -10,7 +10,8 @@ use InvalidArgumentException;
  * @Target({"CLASS"})
  * @Attributes(
  *     @Attribute("path", type="string"),
- *     @Attribute("type", type="string")
+ *     @Attribute("type", type="string"),
+ *     @Attribute("return", type="string"),
  * )
  */
 class ApiMessage
@@ -26,6 +27,11 @@ class ApiMessage
      * @var string
      */
     public $type;
+
+    /**
+     * @var string
+     */
+    public $return;
 
     /**
      * @throws InvalidArgumentException
